@@ -1,6 +1,5 @@
 import unittest
-from smtproutes import SMTPRoute
-
+from smtproutes import SMTPRoute, RoutingException
 
 class TestSMTPRoute(unittest.TestCase):
     
@@ -11,13 +10,45 @@ class TestSMTPRoute(unittest.TestCase):
         
         class SMTPRouteImpl(SMTPRoute):
             
-            def route1(awesome=5, route=r'ben@example.com'):
+            def route1(self, awesome=5, route=r'ben@example.com'):
                 pass
             
-            def route2(route=r'ben2@example.com', cool=5):
+            def route2(self, route=r'ben2@example.com', cool=5):
                 pass
             
         
         route = SMTPRouteImpl()
         self.assertTrue('ben@example.com' in route._routes)
         self.assertTrue('ben2@example.com' in route._routes)
+    
+    def test_calling_route_with_a_matching_regex_results_in_the_appropriate_route_being_invoked(self):
+
+        class SMTPRouteImpl(SMTPRoute):
+            
+            def route1(self, awesome=5, route=r'ben@example.com'):
+                self.bar = 'bar'
+            
+            def route2(self, route=r'ben2@example.com', cool=5):
+                self.bar = 'foo'
+            
+        message =  """To: Benjamin <besn@example.com>, eric@foo.com, Eric <eric2@example.com>"""
+
+        route = SMTPRouteImpl()
+        route.route(
+            message_data=message
+        )
+        self.assertEqual('bar', route.bar)
+    
+    def test_a_routing_exception_should_be_raised_if_the_route_is_not_found(self):
+        class SMTPRouteImpl(SMTPRoute):
+            pass
+            
+        message =  """To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>"""
+        route = SMTPRouteImpl()
+        try:
+            route.route(
+                message_data=message
+            )
+            self.assertTrue(False)
+        except RoutingException:
+            self.assertTrue(True)

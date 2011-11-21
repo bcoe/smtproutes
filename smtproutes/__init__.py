@@ -1,6 +1,9 @@
+from smtp_route import SMTPRoute
+from contact import Contact
+from routing_exception import RoutingException
+
 import logging
 from logging.handlers import RotatingFileHandler
-from smtp_route import SMTPRoute
 
 def _create_logger():
     log_name = '/var/log/smtproutes.log'
