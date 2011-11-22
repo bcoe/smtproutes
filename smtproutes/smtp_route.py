@@ -7,7 +7,7 @@ class SMTPRoute(object):
     def __init__(self):
         self._register_routes()
         
-    def route(self, mailfrom=None, message_data=None):
+    def _route(self, mailfrom=None, message_data=None):
         self.message = email.message_from_string(message_data)
         self.mailfrom = Contact(mailfrom)
         self.tos = Contact.create_contacts_from_message_field('to', self.message)
@@ -21,11 +21,17 @@ class SMTPRoute(object):
             for route in self._routes.keys():
                 if re.match(route, to.email):
                     route_found = True
+                    self._populate_instance_variables_from_named_capture_groups(route, to.email)
                     self._routes[route]()
         
         if not route_found:
             raise RoutingException(self.message)
-            
+    
+    def _populate_instance_variables_from_named_capture_groups(self, regex, addr):
+        match = re.match(regex, addr)
+        for k, v in match.groupdict().items():
+            self.__dict__[k] = v
+        
     def _register_routes(self):
         self._routes = {}
         

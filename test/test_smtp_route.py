@@ -34,7 +34,7 @@ class TestSMTPRoute(unittest.TestCase):
         message =  """To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>"""
 
         route = SMTPRouteImpl()
-        route.route(
+        route._route(
             message_data=message
         )
         self.assertEqual('bar', route.bar)
@@ -46,9 +46,22 @@ class TestSMTPRoute(unittest.TestCase):
         message =  """To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>"""
         route = SMTPRouteImpl()
         try:
-            route.route(
+            route._route(
                 message_data=message
             )
             self.assertTrue(False)
         except RoutingException:
             self.assertTrue(True)
+    
+    def test_named_groups_stored_as_instance_variables_on_route(self):
+        class SMTPRouteImpl(SMTPRoute):
+            
+            def route(self, route=r'(?P<user>[^-]*)-(?P<folder>.*)@.*'):
+                self.called = True
+        
+        message =  """To: Benjamin <bencoe-awesome-folder@example.com>"""
+        route = SMTPRouteImpl()
+        route._route(message_data=message)
+        self.assertEqual(route.user, 'bencoe')
+        self.assertEqual(route.folder, 'awesome-folder')
+        self.assertEqual(route.called, True)
