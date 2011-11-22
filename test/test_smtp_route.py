@@ -31,7 +31,7 @@ class TestSMTPRoute(unittest.TestCase):
             def route2(self, route=r'ben2@example.com', cool=5):
                 self.bar = 'foo'
             
-        message =  """To: Benjamin <besn@example.com>, eric@foo.com, Eric <eric2@example.com>"""
+        message =  """To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>"""
 
         route = SMTPRouteImpl()
         route.route(
