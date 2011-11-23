@@ -7,7 +7,6 @@ class SPFAuth(object):
         mailfrom = Contact.create_contacts_from_message_field('from', message)[0]
         host = re.match('[^@]*@(.*)', mailfrom.email).group(1)
         result_status = spf.check(i=peer_ip, s=mailfrom.email, h=host)[0]
-        print result_status
         if 'pass' in result_status:
             return True
         return False
