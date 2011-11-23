@@ -88,7 +88,7 @@ from smtproutes import Server
 server = Server(('0.0.0.0', 25), None)
 ```
 
-Once the server is created, you can register routes with it, and start it running:
+Once the server is created, you can register routes with it and start it running:
 
 ```python
 from example_route import ExampleRoute
