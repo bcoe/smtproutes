@@ -1,0 +1,2 @@
+class SenderAuthException(Exception):
+    pass

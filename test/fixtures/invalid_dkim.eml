@@ -1,0 +1,64 @@
+Return-Path: bencoe@gmail.com
+Received: from amazon.cs.uoguelph.ca (LHLO amazon.cs.uoguelph.ca)
+ (172.17.91.198) by zcs3.mail.uoguelph.ca with LMTP; Wed, 23 Nov 2011
+ 03:52:26 -0500 (EST)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by amazon.cs.uoguelph.ca (Postfix) with ESMTP id 212BE1E4A83
+	for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 03:52:25 -0500 (EST)
+X-Virus-Scanned: amavisd-new at amazon.cs.uoguelph.ca
+X-Spam-Flag: NO
+X-Spam-Score: -0.006
+X-Spam-Level: 
+X-Spam-Status: No, score=-0.006 tagged_above=-10 required=6.6
+	tests=[BAYES_40=-0.001, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
+	DKIM_VALID_AU=-0.1, FREEMAIL_FROM=0.001, HTML_MESSAGE=0.001,
+	RCVD_IN_DNSWL_LOW=-0.7, RDNS_NONE=0.793] autolearn=no
+Authentication-Results: amazon.cs.uoguelph.ca (amavisd-new); dkim=pass
+	header.i=@gmail.com
+Received: from amazon.cs.uoguelph.ca ([127.0.0.1])
+	by localhost (amazon.cs.uoguelph.ca [127.0.0.1]) (amavisd-new, port 10024)
+	with ESMTP id nvX1vsZNrB9m for <bcoe@uoguelph.ca>;
+	Wed, 23 Nov 2011 03:52:24 -0500 (EST)
+Received: from esa-jnhn.mail.uoguelph.ca (esa-jnhn.mail.uoguelph.ca [131.104.91.44])
+	by amazon.cs.uoguelph.ca (Postfix) with ESMTP id B48D41E4A47
+	for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 03:52:24 -0500 (EST)
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-Anti-Spam-Result: AtAAAJmzzE7RVdWvkGdsb2JhbABEqloIIgEBAQEJCQ0HFAQhggsCLAEbHgMSCAECBV0BEQEFASI1nHmCXAqLYYJmhHY9iHECBQqKWASIIIwojVc9hBc
+X-IronPort-AV: E=Sophos;i="4.69,557,1315195200"; 
+   d="scan'208";a="146591521"
+X-SBRS: 4.4
+Received: from mail-yx0-f175.google.com ([209.85.213.175])
+  by esa-jnhn.mail.uoguelph.ca with ESMTP; 23 Nov 2011 03:52:24 -0500
+Received: by yenm2 with SMTP id m2so1186801yen.6
+        for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 00:52:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=gamma;
+        h=mime-version:date:message-id:subject:from:to:content-type;
+        bh=zhSZpEabUbnviG01tthVj3qd0jl7l4pNU8Y04w7ksOo=;
+        b=avtS1gnsQq1zBjx5XkQg8OHMytI6rnjPiEmmGXwgby7a3uO7gJjuwy26dfdJUsfRmW
+         FkAfHenUaQ7Pb8JztODIZ0Aw4cn+4w++EVp2FbrPcgfdgXIdXrWPsegPigfzz+DDPT53
+         bLeFml0NC9BFtgw/zD+9slhhQTZmZZpbOXJ7M=
+MIME-Version: 1.0
+Received: by 10.236.129.244 with SMTP id h80mr32823733yhi.130.1322038344139;
+ Wed, 23 Nov 2011 00:52:24 -0800 (PST)
+Received: by 10.100.239.8 with HTTP; Wed, 23 Nov 2011 00:52:24 -0800 (PST)
+Date: Wed, 23 Nov 2011 00:52:24 -0800
+Message-ID: <CAPaLAOttOxnSGbEh9EeMCKLS1VfD=1AW=zPzXqJqd+o0ipnHJQ@mail.gmail.com>
+Subject: Testing DKIM
+From: Ben Coe <bencoe@gmail.com>
+To: ben coe <bcoe@uoguelph.ca>
+Content-Type: multipart/alternative; boundary=20cf300e55f3e1c2f804b2630968
+
+--20cf300e55f3e1c2f804b2630968
+Content-Type: text/plain; charset=ISO-8859-1
+
+An email specifically for testing DKIM.
+
+--20cf300e55f3e1c2f804b2630968
+Content-Type: text/html; charset=ISO-8859-1
+
+An email specifically for testing DKIM.
+
+junk.
+
+--20cf300e55f3e1c2f804b2630968--

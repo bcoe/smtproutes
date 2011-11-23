@@ -13,7 +13,7 @@ class Server(SMTPServer):
     def process_message(self, peer, mailfrom, rcpttos, message_data):
         for RouteClass in self.routes:
             route = RouteClass()
-            route._route(mailfrom, message_data)
+            route._route(message_data)
     
     def start(self):
         asyncore.loop()
