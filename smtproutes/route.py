@@ -34,7 +34,7 @@ class Route(object):
     def _auth_sender(self, route):
         if self._routes[route].get('sender_auth'):
             auth_instance = self._routes[route].get('sender_auth')()
-            if not auth_instance.auth(self.raw_message_data, self._peer_ip):
+            if not auth_instance.auth(self.raw_message_data, self._peer_ip, self.message):
                 raise SenderAuthException('Sender %s authentication failed.' % self.mailfrom)
     
     def _populate_instance_variables_from_named_capture_groups(self, regex, addr):
