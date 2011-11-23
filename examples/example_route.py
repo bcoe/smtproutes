@@ -1,5 +1,5 @@
 from smtproutes import Route
-from smtproutes.sender auth import DKIMAuth, GmailSPFAuth, SPFAuth
+from smtproutes.sender_auth import DKIMAuth, GmailSPFAuth, SPFAuth
 
 class ExampleRoute(Route):
     
