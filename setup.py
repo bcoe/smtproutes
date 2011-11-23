@@ -13,7 +13,9 @@ setup(
     install_requires = [
         'secure-smtpd',
         'pydkim',
-        'dnspython'
+        'dnspython',
+        'pyspf',
+        'pydns'
     ],
     tests_require=[
         'nose'

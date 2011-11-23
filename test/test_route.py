@@ -1,6 +1,6 @@
 import unittest
 from smtproutes import Route, RoutingException
-from smtproutes.sender_auth import DKIMSenderAuth, SenderAuthException
+from smtproutes.sender_auth import DKIMAuth, GmailSPFAuth, SenderAuthException
 
 class TestRoute(unittest.TestCase):
     
@@ -71,7 +71,7 @@ class TestRoute(unittest.TestCase):
     def test_exception_raised_when_sender_auth_fails_on_route(self):
 
         class RouteImpl(Route):            
-            def route(self, route=r'bcoe@.*', sender_auth=DKIMSenderAuth):
+            def route(self, route=r'bcoe@.*', sender_auth=DKIMAuth):
                 self.called = True
         
         route = RouteImpl()
@@ -88,10 +88,10 @@ class TestRoute(unittest.TestCase):
     def test_no_exception_raised_when_sender_auth_succeeds_on_route(self):
 
         class RouteImpl(Route):            
-            def route(self, route=r'bcoe@.*', sender_auth=DKIMSenderAuth):
+            def route(self, route=r'bcoe@.*', sender_auth=GmailSPFAuth):
                 self.called = True
         
-        route = RouteImpl()
+        route = RouteImpl(peer_ip='209.85.213.46')
         route._route(
             message_data=self.valid_dkim_eml
         )

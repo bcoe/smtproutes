@@ -16,5 +16,5 @@ class TestServer(unittest.TestCase):
 
         server = Server(('0.0.0.0', 465), None)
         server.add_route(RouteImpl)
-        server.process_message(None, 'mailfrom@example.com', 'rcpttos@example.com', message)
+        server.process_message(('0.0.0.0', '333'), 'mailfrom@example.com', 'rcpttos@example.com', message)
         
