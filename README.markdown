@@ -21,7 +21,7 @@ class ExampleRoute(Route):
 When invoked a route will have access to the following instance variables:
 
 * _self.message_ the parsed email message.
-* _self.mailfrom_ a contact object incdicating who the message was received from.
+* _self.mailfrom_ a contact object indicating who the message was received from.
 * _self.tos_ an array of contact objects extracted from the To field.
 * _self.ccs_ an array of contact objects extracted from the CC field.
 * _self.bccs_ an array of contact objects extracted from the BCC field.
