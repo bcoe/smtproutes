@@ -15,7 +15,7 @@ from smtproutes import Route
 
 class ExampleRoute(Route):
     def my_route(self, route=r'myroute@.*'):
-		pass
+		print self.mailfrom.email
 ```
 
 When invoked a route will have access to the following instance variables:
