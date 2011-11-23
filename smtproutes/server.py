@@ -12,8 +12,11 @@ class Server(SMTPServer):
     
     def process_message(self, peer, mailfrom, rcpttos, message_data):
         for RouteClass in self.routes:
-            route = RouteClass(peer_ip=peer[0])
-            route._route(message_data)
+            try:
+                route = RouteClass(peer_ip=peer[0])
+                route._route(message_data)
+            except Exception, e:
+                print e
     
     def start(self):
         asyncore.loop()
