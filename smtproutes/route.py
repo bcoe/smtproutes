@@ -2,7 +2,7 @@ import re, email, inspect
 from contact import Contact
 from routing_exception import RoutingException
 
-class SMTPRoute(object):
+class Route(object):
     
     def __init__(self):
         self._register_routes()
