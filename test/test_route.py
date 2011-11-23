@@ -67,7 +67,24 @@ class TestRoute(unittest.TestCase):
         self.assertEqual(route.user, 'bencoe')
         self.assertEqual(route.folder, 'awesome-folder')
         self.assertEqual(route.called, True)
-    
+        
+    def test_instance_variables_populated_based_on_email_message(self):
+        class RouteImpl(Route):
+            
+            def route(self, route=r'a@example.com'):
+                self.called = True
+        
+        message =  'To: a <a@example.com>, b@example.com\nFrom: c@example.com\nCC: d <d@example.com>, e@example.com\nBCC: f@example.com'
+        route = RouteImpl()
+        route._route(message_data=message)
+        self.assertTrue(route.message)
+        self.assertEqual(route.tos[0].email, 'a@example.com')
+        self.assertEqual(route.tos[1].email, 'b@example.com')
+        self.assertEqual(route.mailfrom.email, 'c@example.com')
+        self.assertEqual(route.ccs[0].email, 'd@example.com')
+        self.assertEqual(route.ccs[1].email, 'e@example.com')
+        self.assertEqual(route.bccs[0].email, 'f@example.com')
+        
     def test_exception_raised_when_sender_auth_fails_on_route(self):
         class RouteImpl(Route):            
             def route(self, route=r'bcoe@.*', sender_auth=DKIMAuth):
