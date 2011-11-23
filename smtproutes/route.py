@@ -41,8 +41,6 @@ class Route(object):
             else:
                 auth_approaches.append(auth_instance)
             
-            print auth_approaches
-                
             authed = False
             for auth_approach in auth_approaches:
                 if auth_approach().auth(self.raw_message_data, self._peer_ip, self.message):
