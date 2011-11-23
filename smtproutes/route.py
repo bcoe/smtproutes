@@ -32,10 +32,25 @@ class Route(object):
             raise RoutingException('No matching route found for %s.' % self.tos)
     
     def _auth_sender(self, route):
-        if self._routes[route].get('sender_auth'):
-            auth_instance = self._routes[route].get('sender_auth')()
-            if not auth_instance.auth(self.raw_message_data, self._peer_ip, self.message):
-                raise SenderAuthException('Sender %s authentication failed.' % self.mailfrom)
+        auth_instance = self._routes[route].get('sender_auth')
+        if auth_instance:
+            
+            auth_approaches = []
+            if type(auth_instance) == list:
+                auth_approaches.extend(auth_instance)
+            else:
+                auth_approaches.append(auth_instance)
+            
+            print auth_approaches
+                
+            authed = False
+            for auth_approach in auth_approaches:
+                if auth_approach().auth(self.raw_message_data, self._peer_ip, self.message):
+                    authed = True
+                    break
+            
+            if not authed:
+                raise SenderAuthException('Sender %s authentication failed.' % self.mailfrom)            
     
     def _populate_instance_variables_from_named_capture_groups(self, regex, addr):
         match = re.match(regex, addr)

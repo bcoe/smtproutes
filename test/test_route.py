@@ -7,7 +7,7 @@ class TestRoute(unittest.TestCase):
     def setUp(self):
         self.valid_dkim_eml = file('test/fixtures/valid_dkim.eml').read()
         self.invalid_dkim_eml = file('test/fixtures/invalid_dkim.eml').read()
-        
+    
     def test_route_regexes_extracted_from_methods_on_class_inheriting_from_Route(self):
         
         class RouteImpl(Route):
@@ -69,7 +69,6 @@ class TestRoute(unittest.TestCase):
         self.assertEqual(route.called, True)
     
     def test_exception_raised_when_sender_auth_fails_on_route(self):
-
         class RouteImpl(Route):            
             def route(self, route=r'bcoe@.*', sender_auth=DKIMAuth):
                 self.called = True
@@ -96,3 +95,31 @@ class TestRoute(unittest.TestCase):
             message_data=self.valid_dkim_eml
         )
         self.assertTrue(route.called)
+    
+    def test_if_list_of_sender_authentication_approaches_is_provided_route_called_if_any_pass(self):
+        class RouteImpl(Route):            
+            def route(self, route=r'bcoe@.*', sender_auth=[DKIMAuth, GmailSPFAuth]):
+                self.called = True
+        
+        route = RouteImpl(peer_ip='209.85.213.46')
+        route._route(
+            message_data=self.invalid_dkim_eml
+        )
+        self.assertTrue(route.called)
+
+    def test_if_list_of_sender_authentication_approaches_is_provided_exception_raised_if_all_fail(self):
+        class RouteImpl(Route):            
+            def route(self, route=r'bcoe@.*', sender_auth=[DKIMAuth, GmailSPFAuth]):
+                self.called = True
+        
+        route = RouteImpl()
+        route.called = False
+        
+        try:
+            route._route(
+                message_data=self.invalid_dkim_eml
+            )
+            self.assertTrue(False)
+        except SenderAuthException:
+            self.assertTrue(True)
+        self.assertFalse(route.called)
