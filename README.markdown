@@ -38,3 +38,36 @@ class ExampleRoute(Route):
             self.message
         )
 ```
+
+Sender Authentication
+---------------------
+
+Email is vulnerable to spoofing attacks. SMTPRoutes allows you to provide an authentication object to protect against these.
+
+An authentication class can be provided in the *sender_auth* kwarg of a route.
+
+```python
+def spf_route(self, route=r'(?P<prefix>spf)@(?P<suffix>.*)', sender_auth=SPFAuth):
+    print "%s at %s sent the message: \n\n %s" % (
+        self.prefix,
+        self.suffix,
+        self.message
+    )
+```
+
+Currently the following sender authentication methods are supported:
+
+* _DKIMAuth_ authenticates using a DKIM signature.
+* _SPFAuth_ authenticates using an SPF record.
+* _GmailSPFAuth_ authenticates against Google's SPF records, regardless of sender (useful for Google Apps).
+
+You can provide multiple authentication approaches in the *sender_auth* kwarg, if any pass the route will be called:
+
+```python
+def spf_google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
+    print "%s at %s sent the message: \n\n %s" % (
+        self.prefix,
+        self.suffix,
+        self.message
+    )
+```
