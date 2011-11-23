@@ -64,10 +64,36 @@ Currently the following sender authentication methods are supported:
 You can provide multiple authentication approaches in the *sender_auth* kwarg, if any pass the route will be called:
 
 ```python
-def spf_google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
+def google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
     print "%s at %s sent the message: \n\n %s" % (
         self.prefix,
         self.suffix,
         self.message
     )
 ```
+
+Running a Server
+----------------
+
+The server is a thin abstraction on top of Secure-SMTPD (https://github.com/bcoe/secure-smtpd) hence:
+
+* SSL is supported.
+* Basic SMTP authentication is supported.
+
+Create an instance of the server using the same options specified in the secure-smtpd project.
+
+```python
+from smtproutes import Server
+
+server = Server(('0.0.0.0', 25), None)
+```
+
+Once the server is created, you can register routes with it, and start it running:
+
+```python
+from example_route import ExampleRoute
+server.add_route(ExampleRoute)
+server.start()
+```
+
+The server will now be listening on port 25 for inbound SMTP messages.

@@ -24,7 +24,7 @@ class ExampleRoute(Route):
             self.message
         )
 
-    def spf_google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
+    def google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
         print "%s at %s sent the message: \n\n %s" % (
             self.prefix,
             self.suffix,
