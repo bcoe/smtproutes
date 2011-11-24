@@ -5,6 +5,11 @@ SMTPRoutes is a light weight SMTP server built on top of Secure-SMTPD.
 
 It's what you'd get if Sinatra and SMTP had a baby.
 
+Installation
+------------
+
+*easy_install smtproutes*
+
 Routes
 ------
 
@@ -57,8 +62,8 @@ def spf_route(self, route=r'(?P<prefix>spf)@(?P<suffix>.*)', sender_auth=SPFAuth
 
 Currently the following sender authentication methods are supported:
 
-* _DKIMAuth_ authenticates using a DKIM signature.
-* _SPFAuth_ authenticates using an SPF record.
+* _DKIMAuth_ authenticates using a DKIM signature. (http://en.wikipedia.org/wiki/DomainKeys_Identified_Mail)
+* _SPFAuth_ authenticates using an SPF record. (http://en.wikipedia.org/wiki/Sender_Policy_Framework)
 * _GmailSPFAuth_ authenticates against Google's SPF records, regardless of sender (useful for Google Apps).
 
 You can provide multiple authentication approaches in the *sender_auth* kwarg, if any pass the route will be called:
