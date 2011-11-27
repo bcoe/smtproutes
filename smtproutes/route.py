@@ -35,7 +35,7 @@ class Route(object):
                     self._routes[route]['method']()
         
         if not route_found:
-            raise RoutingException('No matching route found for %s.' % self.tos)
+            raise RoutingException('No matching route found for %s.' % ', '.join(str(r) for r in recipients) )
     
     def _auth_sender(self, route):
         auth_instance = self._routes[route].get('sender_auth')

@@ -111,7 +111,8 @@ class TestRoute(unittest.TestCase):
                 message_data=message
             )
             self.assertTrue(False)
-        except RoutingException:
+        except RoutingException, re:
+            self.assertTrue('ben@example.com' in str(re))
             self.assertTrue(True)
     
     def test_named_groups_stored_as_instance_variables_on_route(self):
