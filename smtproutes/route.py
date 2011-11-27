@@ -20,12 +20,18 @@ class Route(object):
     
     def _call_routes(self):
         route_found = False
-        for to in self.tos:
+        
+        recipients = []
+        recipients.extend(self.tos)
+        recipients.extend(self.ccs)
+        recipients.extend(self.bccs)
+        
+        for recipient in recipients:
             for route in self._routes.keys():
-                if re.match(route, to.email):
+                if re.match(route, recipient.email):
                     route_found = True
                     self._auth_sender(route)
-                    self._populate_instance_variables_from_named_capture_groups(route, to.email)
+                    self._populate_instance_variables_from_named_capture_groups(route, recipient.email)
                     self._routes[route]['method']()
         
         if not route_found:

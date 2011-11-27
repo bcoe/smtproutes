@@ -62,6 +62,44 @@ class TestRoute(unittest.TestCase):
         )
         self.assertEqual('bar', r.bar)
     
+    def test_a_cc_field_that_matches_a_route_causes_the_route_to_be_triggered(self):
+
+        class RouteImpl(Route):
+            @route(r'ben@example.com')
+            def route1(self):
+                self.bar = 'bar'
+            
+            @route(r'ben2@example.com')
+            def route2(self):
+                self.bar = 'foo'
+            
+        message =  'To: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: ben@example.com\nFrom: Ben Coe <bencoe@example.com>'
+        
+        r = RouteImpl()
+        r._route(
+            message_data=message
+        )
+        self.assertEqual('bar', r.bar)
+
+    def test_a_bcc_field_that_matches_a_route_causes_the_route_to_be_triggered(self):
+
+        class RouteImpl(Route):
+            @route(r'ben@example.com')
+            def route1(self):
+                self.bar = 'bar'
+            
+            @route(r'ben2@example.com')
+            def route2(self):
+                self.bar = 'foo'
+            
+        message =  'BCC: chuck@example.com, ben@example.com\nTo: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: bar@example.com\nFrom: Ben Coe <bencoe@example.com>'
+
+        r = RouteImpl()
+        r._route(
+            message_data=message
+        )
+        self.assertEqual('bar', r.bar)
+    
     def test_a_routing_exception_should_be_raised_if_the_route_is_not_found(self):
         class RouteImpl(Route):
             pass
