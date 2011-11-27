@@ -13,13 +13,15 @@ Installation
 Routes
 ------
 
-Routes are specified via a regex provided in the *route* kwarg.
+Routes are specified via a regex provided in the *route* decorator.
 
 ```python
 from smtproutes import Route
+from smtproutes.decorators import route
 
 class ExampleRoute(Route):
-    def my_route(self, route=r'myroute@.*'):
+	@route(r'myroute@.*')
+    def my_route(self):
 		print self.mailfrom.email
 ```
 
