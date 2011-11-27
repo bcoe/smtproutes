@@ -38,7 +38,8 @@ Any named groups specified in the route regex will be availble as instance varia
 ```python
 class ExampleRoute(Route):
     
-    def open_route(self, route=r'(?P<prefix>open)@(?P<suffix>.*)'):
+	@route(r'(?P<prefix>open)@(?P<suffix>.*)')
+    def open_route(self):
         print "%s at %s sent the message: \n\n %s" % (
             self.prefix,
             self.suffix,
@@ -54,7 +55,8 @@ Email is vulnerable to spoofing attacks. SMTPRoutes allows you to provide an aut
 An authentication class can be provided in the *sender_auth* kwarg of a route.
 
 ```python
-def spf_route(self, route=r'(?P<prefix>spf)@(?P<suffix>.*)', sender_auth=SPFAuth):
+@route(r'(?P<prefix>spf)@(?P<suffix>.*)', sender_auth=SPFAuth)
+def spf_route(self):
     print "%s at %s sent the message: \n\n %s" % (
         self.prefix,
         self.suffix,
@@ -71,7 +73,8 @@ Currently the following sender authentication methods are supported:
 You can provide multiple authentication approaches in the *sender_auth* kwarg, if any pass the route will be called:
 
 ```python
-def google_apps_spf_route(self, route=r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth]):
+@route(r'(?P<prefix>spf_google)@(?P<suffix>.*)', sender_auth=[SPFAuth, GmailSPFAuth])
+def google_apps_spf_route(self):
     print "%s at %s sent the message: \n\n %s" % (
         self.prefix,
         self.suffix,
@@ -99,8 +102,7 @@ Once the server is created, you can register routes with it and start it running
 
 ```python
 from example_route import ExampleRoute
-server.add_route(ExampleRoute)
-server.start()
+server.add_route(ExampleRoute).start()
 ```
 
 The server will now be listening on port 25 for inbound SMTP messages.
