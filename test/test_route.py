@@ -1,6 +1,7 @@
 import unittest
 from smtproutes import Route, RoutingException
 from smtproutes.sender_auth import DKIMAuth, GmailSPFAuth, SenderAuthException
+from smtproutes.decorators import route
 
 class TestRoute(unittest.TestCase):
     
@@ -40,6 +41,26 @@ class TestRoute(unittest.TestCase):
             message_data=message
         )
         self.assertEqual('bar', route.bar)
+        
+    def test_route_decorator_can_be_used_to_define_endpoint_rather_than_kwarg(self):
+
+        class RouteImpl(Route):
+            
+            @route('ben@example.com')
+            def route1(self):
+                self.bar = 'bar'
+            
+            @route('ben2@example.com')
+            def route2(self):
+                self.bar = 'foo'
+            
+        message =  'To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>\nFrom: Ben Coe <bencoe@example.com>'
+
+        r = RouteImpl()
+        r._route(
+            message_data=message
+        )
+        self.assertEqual('bar', r.bar)
     
     def test_a_routing_exception_should_be_raised_if_the_route_is_not_found(self):
         class RouteImpl(Route):
@@ -102,7 +123,6 @@ class TestRoute(unittest.TestCase):
         self.assertFalse(route.called)
 
     def test_no_exception_raised_when_sender_auth_succeeds_on_route(self):
-
         class RouteImpl(Route):            
             def route(self, route=r'bcoe@.*', sender_auth=GmailSPFAuth):
                 self.called = True
@@ -110,6 +130,18 @@ class TestRoute(unittest.TestCase):
         route = RouteImpl(peer_ip='209.85.213.46')
         route._route(
             message_data=self.valid_dkim_eml
+        )
+        self.assertTrue(route.called)
+        
+    def test_route_decorator_can_be_used_rather_than_kwarg_to_specify_sender_auth(self):
+        class RouteImpl(Route):
+            @route('bcoe@.*', sender_auth=GmailSPFAuth)
+            def route(self):
+                self.called = True
+        
+        route = RouteImpl(peer_ip='209.85.213.46')
+        route._route(
+            message_data=self.invalid_dkim_eml
         )
         self.assertTrue(route.called)
     
