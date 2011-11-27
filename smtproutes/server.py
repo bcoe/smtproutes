@@ -9,6 +9,7 @@ class Server(SMTPServer):
     
     def add_route(self, RouteClass):
         self.routes.append(RouteClass)
+        return self
     
     def process_message(self, peer, mailfrom, rcpttos, message_data):
         for RouteClass in self.routes:
