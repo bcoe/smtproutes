@@ -1,4 +1,4 @@
-from smtproutes import Route
+from smtproutes import Route, Server
 from smtproutes.sender_auth import DKIMAuth, GmailSPFAuth, SPFAuth
 from smtproutes.decorators import route
 
@@ -35,3 +35,5 @@ class ExampleRoute(Route):
             self.suffix,
             self.message
         )
+
+Server(('0.0.0.0', 25), None).add_route(ExampleRoute).start()
