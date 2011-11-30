@@ -52,7 +52,7 @@ Sender Authentication
 
 Email is vulnerable to spoofing attacks. SMTPRoutes allows you to provide an authentication object to protect against these.
 
-An authentication class can be provided in the *sender_auth* kwarg of a route.
+An authentication class can be provided in the *sender_auth* kwarg of a route decorator.
 
 ```python
 @route(r'(?P<prefix>spf)@(?P<suffix>.*)', sender_auth=SPFAuth)
@@ -85,12 +85,12 @@ def google_apps_spf_route(self):
 Running a Server
 ----------------
 
-The server is a thin abstraction on top of Secure-SMTPD (https://github.com/bcoe/secure-smtpd) hence:
+The server is a thin abstraction on top of secure-smtpd (https://github.com/bcoe/secure-smtpd)w:
 
 * SSL is supported.
 * Basic SMTP authentication is supported.
 
-Create an instance of the server using the same options specified in the secure-smtpd project.
+Create an instance of the server using any of the configuration options specified in the secure-smtpd project.
 
 ```python
 from smtproutes import Server
@@ -106,3 +106,28 @@ server.add_route(ExampleRoute).start()
 ```
 
 The server will now be listening on port 25 for inbound SMTP messages.
+
+The Contact Objects
+-------------------
+
+_self.mailfrom_, _self.tos_, _self.ccs_, and _self.bccs_ each contain instances of contact objects:
+
+* _contact.name_ the name extracted from the email address.
+* _contact.email_ the email of the contact.
+
+The Message Object
+------------------
+
+*self.message* is available as an instance variable when a route is executed.
+
+*self.messsage* is a subclass of *email.message.Message* described here: http://docs.python.org/library/email.message.html#module-email.message
+
+Additional Support for Attachments
+----------------------------------
+
+*self.message* has been extended upon to include an *attachments* property, which contains a list of pre-processed attachments:
+
+* _attachment.filename_ the filename of the attachment.
+* _attachment.data_ the binary data of the attachment.
+* _attachment.extension_ the file extension of the attachment.
+* _attachment.mime_type_ the mime type of the attachment.

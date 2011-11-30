@@ -1,7 +1,7 @@
 import smtproutes
 import re, email, inspect, logging
 
-from contact import Contact
+from model import Contact, Message
 from routing_exception import RoutingException
 from sender_auth import SenderAuthException
 
@@ -14,7 +14,7 @@ class Route(object):
         
     def _route(self, message_data=None):
         self.raw_message_data = message_data
-        self.message = email.message_from_string(message_data)
+        self.message = email.message_from_string(message_data, Message)
         self.mailfrom = Contact.create_contacts_from_message_field('from', self.message)[0]
         self.tos = Contact.create_contacts_from_message_field('to', self.message)
         self.ccs = Contact.create_contacts_from_message_field('cc', self.message)

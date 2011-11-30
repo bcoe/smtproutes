@@ -1,5 +1,5 @@
 import spf, re, email
-from smtproutes.contact import Contact
+from smtproutes.model import Contact
 
 class SPFAuth(object):
     
