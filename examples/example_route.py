@@ -1,3 +1,6 @@
+import smtproutes
+import logging
+
 from smtproutes import Route, Server
 from smtproutes.sender_auth import DKIMAuth, GmailSPFAuth, SPFAuth
 from smtproutes.decorators import route
@@ -36,4 +39,6 @@ class ExampleRoute(Route):
             self.message
         )
 
+logger = logging.getLogger( smtproutes.LOG_NAME )
+logger.setLevel(logging.INFO)
 Server(('0.0.0.0', 25), None).add_route(ExampleRoute).start()

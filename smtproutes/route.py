@@ -1,4 +1,6 @@
-import re, email, inspect
+import smtproutes
+import re, email, inspect, logging
+
 from contact import Contact
 from routing_exception import RoutingException
 from sender_auth import SenderAuthException
@@ -8,6 +10,7 @@ class Route(object):
     def __init__(self, peer_ip='0.0.0.0'):
         self._peer_ip = peer_ip
         self._register_routes()
+        self.logger = logging.getLogger( smtproutes.LOG_NAME )
         
     def _route(self, message_data=None):
         self.raw_message_data = message_data
@@ -29,6 +32,7 @@ class Route(object):
         for recipient in recipients:
             for route in self._routes.keys():
                 if re.match(route, recipient.email):
+                    self.logger.info('Route %s matched email %s' % (route, recipient.email))
                     route_found = True
                     self._auth_sender(route)
                     self._populate_instance_variables_from_named_capture_groups(route, recipient.email)
