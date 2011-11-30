@@ -85,7 +85,7 @@ def google_apps_spf_route(self):
 Running a Server
 ----------------
 
-The server is a thin abstraction on top of secure-smtpd ( https://github.com/bcoe/secure-smtpd ):
+The server is a thin abstraction on top of secure-smtpd https://github.com/bcoe/secure-smtpd.
 
 * SSL is supported.
 * Basic SMTP authentication is supported.
