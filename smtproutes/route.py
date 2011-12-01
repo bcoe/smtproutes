@@ -7,11 +7,11 @@ from sender_auth import SenderAuthException
 
 class Route(object):
     
-    def __init__(self, peer_ip='0.0.0.0'):
+    def _initialize(self, peer_ip='0.0.0.0'):
         self._peer_ip = peer_ip
-        self._register_routes()
         self.logger = logging.getLogger( smtproutes.LOG_NAME )
-        
+        self._register_routes()
+    
     def _route(self, message_data=None):
         self.raw_message_data = message_data
         self.message = email.message_from_string(message_data, Message)

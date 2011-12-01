@@ -18,9 +18,9 @@ class TestRoute(unittest.TestCase):
             
             def route2(self, route=r'ben2@example.com'):
                 pass
-            
         
         route = RouteImpl()
+        route._initialize()
         self.assertTrue('ben@example.com' in route._routes)
         self.assertTrue('ben2@example.com' in route._routes)
     
@@ -37,6 +37,7 @@ class TestRoute(unittest.TestCase):
         message =  'To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>\nFrom: Ben Coe <bencoe@example.com>'
 
         route = RouteImpl()
+        route._initialize()
         route._route(
             message_data=message
         )
@@ -55,8 +56,9 @@ class TestRoute(unittest.TestCase):
                 self.bar = 'foo'
             
         message =  'To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>\nFrom: Ben Coe <bencoe@example.com>'
-
+        
         r = RouteImpl()
+        r._initialize()
         r._route(
             message_data=message
         )
@@ -76,6 +78,7 @@ class TestRoute(unittest.TestCase):
         message =  'To: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: ben@example.com\nFrom: Ben Coe <bencoe@example.com>'
         
         r = RouteImpl()
+        r._initialize()
         r._route(
             message_data=message
         )
@@ -95,6 +98,7 @@ class TestRoute(unittest.TestCase):
         message =  'BCC: chuck@example.com, ben@example.com\nTo: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: bar@example.com\nFrom: Ben Coe <bencoe@example.com>'
 
         r = RouteImpl()
+        r._initialize()
         r._route(
             message_data=message
         )
@@ -106,6 +110,7 @@ class TestRoute(unittest.TestCase):
             
         message =  'To: Benjamin <ben@example.com>, eric@foo.com, Eric <eric2@example.com>\nFrom: Ben Coe <bencoe@example.com>'
         route = RouteImpl()
+        route._initialize()
         try:
             route._route(
                 message_data=message
@@ -123,6 +128,7 @@ class TestRoute(unittest.TestCase):
         
         message =  'To: Benjamin <bencoe-awesome-folder@example.com>\nFrom: bencoe@example.com'
         route = RouteImpl()
+        route._initialize()
         route._route(message_data=message)
         self.assertEqual(route.user, 'bencoe')
         self.assertEqual(route.folder, 'awesome-folder')
@@ -136,6 +142,7 @@ class TestRoute(unittest.TestCase):
         
         message =  'To: a <a@example.com>, b@example.com\nFrom: c@example.com\nCC: d <d@example.com>, e@example.com\nBCC: f@example.com'
         route = RouteImpl()
+        route._initialize()
         route._route(message_data=message)
         self.assertTrue(route.message)
         self.assertEqual(route.tos[0].email, 'a@example.com')
@@ -151,6 +158,7 @@ class TestRoute(unittest.TestCase):
                 self.called = True
         
         route = RouteImpl()
+        route._initialize()
         route.called = False
         try:
             route._route(
@@ -166,7 +174,8 @@ class TestRoute(unittest.TestCase):
             def route(self, route=r'bcoe@.*', sender_auth=GmailSPFAuth):
                 self.called = True
         
-        route = RouteImpl(peer_ip='209.85.213.46')
+        route = RouteImpl()
+        route._initialize(peer_ip='209.85.213.46')
         route._route(
             message_data=self.valid_dkim_eml
         )
@@ -178,7 +187,8 @@ class TestRoute(unittest.TestCase):
             def route(self):
                 self.called = True
         
-        route = RouteImpl(peer_ip='209.85.213.46')
+        route = RouteImpl()
+        route._initialize(peer_ip='209.85.213.46')
         route._route(
             message_data=self.invalid_dkim_eml
         )
@@ -189,7 +199,8 @@ class TestRoute(unittest.TestCase):
             def route(self, route=r'bcoe@.*', sender_auth=[DKIMAuth, GmailSPFAuth]):
                 self.called = True
         
-        route = RouteImpl(peer_ip='209.85.213.46')
+        route = RouteImpl()
+        route._initialize(peer_ip='209.85.213.46')
         route._route(
             message_data=self.invalid_dkim_eml
         )
@@ -201,6 +212,7 @@ class TestRoute(unittest.TestCase):
                 self.called = True
         
         route = RouteImpl()
+        route._initialize()
         route.called = False
         
         try:

@@ -18,7 +18,8 @@ class Server(SMTPServer):
     def process_message(self, peer, mailfrom, rcpttos, message_data):
         for RouteClass in self.routes:
             try:
-                route = RouteClass(peer_ip=peer[0])
+                route = RouteClass()
+                route._initialize(peer_ip=peer[0])
                 route._route(message_data)
             except RoutingException, re:
                 self.logger.warn( re )
