@@ -11,7 +11,7 @@ setup(
     url="https://github.com/bcoe/smtproutes",
     packages = find_packages(),
     install_requires = [
-        'secure-smtpd>=1.1.5',
+        'secure-smtpd>=1.1.6',
         'pydkim',
         'dnspython',
         'pyspf',
