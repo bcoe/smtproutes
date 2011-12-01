@@ -1,3 +1,2 @@
 import log
-
-LOG_NAME = 'smtproutes'
+from log import LOG_NAME
