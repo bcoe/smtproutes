@@ -4,14 +4,14 @@ from setuptools import setup, find_packages
 
 setup(
     name="smtproutes",
-    version="1.2.3",
+    version="1.2.4",
     description="A simple, Sinatra inspired, SMTP routing server.",
     author="Benjamin Coe",
     author_email="bencoe@gmail.com",
     url="https://github.com/bcoe/smtproutes",
     packages = find_packages(),
     install_requires = [
-        'secure-smtpd>=1.1.6',
+        'secure-smtpd>=1.1.7',
         'pydkim',
         'dnspython',
         'pyspf',
