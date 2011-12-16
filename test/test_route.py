@@ -104,14 +104,14 @@ class TestRoute(unittest.TestCase):
         )
         self.assertEqual('bar', r.bar)
         
-    def test_delivered_to_address_is_treated_as_to_address(self):
+    def test_x_forwarded_to_address_is_treated_as_to_address(self):
 
         class RouteImpl(Route):
             @route(r'ben@example.com')
             def route1(self):
                 self.bar = 'bar'
             
-        message =  'Delivered-To: chuck@example.com, ben@example.com\nTo: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: bar@example.com\nFrom: Ben Coe <bencoe@example.com>'
+        message =  'X-Forwarded-To: chuck@example.com, ben@example.com\nTo: Benjamin <foo@example.com>, eric@foo.com, Eric <eric2@example.com>\nCC: bar@example.com\nFrom: Ben Coe <bencoe@example.com>'
         
         r = RouteImpl()
         r._initialize()
