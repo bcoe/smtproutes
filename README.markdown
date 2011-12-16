@@ -124,8 +124,8 @@ The Message Object
 
 Extended functionality:
 
-* message.body the plain text body of the message.
-* message.attachments the attachments on the message.
+* _message.body_ the plain text body of the message.
+* _message.attachments_ the attachments on the message.
 
 Additional Support for Attachments
 ----------------------------------
