@@ -25,6 +25,7 @@ class Route(object):
         route_found = False
         
         recipients = []
+        recipients.extend(self.mailfrom)
         recipients.extend(self.tos)
         recipients.extend(self.ccs)
         recipients.extend(self.bccs)
