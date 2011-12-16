@@ -17,6 +17,7 @@ class Route(object):
         self.message = email.message_from_string(message_data, Message)
         self.mailfrom = Contact.create_contacts_from_message_field('from', self.message)[0]
         self.tos = Contact.create_contacts_from_message_field('to', self.message)
+        self.tos.extend( Contact.create_contacts_from_message_field('delivered-to', self.message) )
         self.ccs = Contact.create_contacts_from_message_field('cc', self.message)
         self.bccs = Contact.create_contacts_from_message_field('bcc', self.message)
         self._call_routes()

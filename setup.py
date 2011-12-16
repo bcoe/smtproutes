@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="smtproutes",
-    version="1.2.5",
+    version="1.2.6",
     description="A simple, Sinatra inspired, SMTP routing server.",
     author="Benjamin Coe",
     author_email="bencoe@gmail.com",
