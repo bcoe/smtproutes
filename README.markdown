@@ -122,6 +122,11 @@ The Message Object
 
 *self.messsage* is a subclass of *email.message.Message* described here: http://docs.python.org/library/email.message.html#module-email.message
 
+Extended functionality:
+
+* message.body the plain text body of the message.
+* message.attachments the attachments on the message.
+
 Additional Support for Attachments
 ----------------------------------
 
