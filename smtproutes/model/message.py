@@ -19,3 +19,10 @@ class Message(email.message.Message):
             data = part.get_payload(decode=True)
             attachments.append(Attachment(filename=filename, data=data, mime_type=part.get_content_type()))
         return attachments
+    
+    @property
+    def body(self):
+        for part in self.walk():
+            if part.get_content_maintype() == 'text':
+                return part.get_payload()
+        return ''
