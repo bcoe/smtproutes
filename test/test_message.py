@@ -17,3 +17,7 @@ class TestMessage(unittest.TestCase):
     def test_body_returns_text_body_of_message(self):
         message = email.message_from_string(self.attachment_eml, Message)
         self.assertEqual(message.body, 'message with attachments.\n')
+    
+    def test_decode_filename_decodes_non_ascii_filenames(self):
+        message = email.message_from_string(self.attachment_eml, Message)
+        self.assertEqual(message._decode_string('=?Big5?B?xKy7t6fTsdCxwsKyvvoucGRm?='), u'\u8607\u9060\u5FD7\u6559\u6388\u7C21\u6B77.pdf')
