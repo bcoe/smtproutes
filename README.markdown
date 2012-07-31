@@ -8,7 +8,12 @@ It's what you'd get if Sinatra and SMTP had a baby.
 Installation
 ------------
 
-*easy_install smtproutes*
+```shell
+$ easy_install smtproutes
+```
+
+**Note:** You must use easy_install here. If you use pip there
+will be conflicting dependencies and things won't work.
 
 Routes
 ------
