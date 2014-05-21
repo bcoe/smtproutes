@@ -1,62 +1,158 @@
-Return-Path: bencoe@gmail.com
-Received: from amazon.cs.uoguelph.ca (LHLO amazon.cs.uoguelph.ca)
- (172.17.91.198) by zcs3.mail.uoguelph.ca with LMTP; Wed, 23 Nov 2011
- 03:52:26 -0500 (EST)
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by amazon.cs.uoguelph.ca (Postfix) with ESMTP id 212BE1E4A83
-	for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 03:52:25 -0500 (EST)
-X-Virus-Scanned: amavisd-new at amazon.cs.uoguelph.ca
-X-Spam-Flag: NO
-X-Spam-Score: -0.006
-X-Spam-Level: 
-X-Spam-Status: No, score=-0.006 tagged_above=-10 required=6.6
-	tests=[BAYES_40=-0.001, DKIM_SIGNED=0.1, DKIM_VALID=-0.1,
-	DKIM_VALID_AU=-0.1, FREEMAIL_FROM=0.001, HTML_MESSAGE=0.001,
-	RCVD_IN_DNSWL_LOW=-0.7, RDNS_NONE=0.793] autolearn=no
-Authentication-Results: amazon.cs.uoguelph.ca (amavisd-new); dkim=pass
-	header.i=@gmail.com
-Received: from amazon.cs.uoguelph.ca ([127.0.0.1])
-	by localhost (amazon.cs.uoguelph.ca [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id nvX1vsZNrB9m for <bcoe@uoguelph.ca>;
-	Wed, 23 Nov 2011 03:52:24 -0500 (EST)
-Received: from esa-jnhn.mail.uoguelph.ca (esa-jnhn.mail.uoguelph.ca [131.104.91.44])
-	by amazon.cs.uoguelph.ca (Postfix) with ESMTP id B48D41E4A47
-	for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 03:52:24 -0500 (EST)
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-Anti-Spam-Result: AtAAAJmzzE7RVdWvkGdsb2JhbABEqloIIgEBAQEJCQ0HFAQhggsCLAEbHgMSCAECBV0BEQEFASI1nHmCXAqLYYJmhHY9iHECBQqKWASIIIwojVc9hBc
-X-IronPort-AV: E=Sophos;i="4.69,557,1315195200"; 
-   d="scan'208";a="146591521"
-X-SBRS: 4.4
-Received: from mail-yx0-f175.google.com ([209.85.213.175])
-  by esa-jnhn.mail.uoguelph.ca with ESMTP; 23 Nov 2011 03:52:24 -0500
-Received: by yenm2 with SMTP id m2so1186801yen.6
-        for <bcoe@uoguelph.ca>; Wed, 23 Nov 2011 00:52:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=gamma;
-        h=mime-version:date:message-id:subject:from:to:content-type;
-        bh=zhSZpEabUbnviG01tthVj3qd0jl7l4pNU8Y04w7ksOo=;
-        b=avtS1gnsQq1zBjx5XkQg8OHMytI6rnjPiEmmGXwgby7a3uO7gJjuwy26dfdJUsfRmW
-         FkAfHenUaQ7Pb8JztODIZ0Aw4cn+4w++EVp2FbrPcgfdgXIdXrWPsegPigfzz+DDPT53
-         bLeFml0NC9BFtgw/zD+9slhhQTZmZZpbOXJ7M=
+Delivered-To: ben@npmjs.com
+Received: by 10.216.77.71 with SMTP id c49csp59276wee;
+        Tue, 20 May 2014 17:23:29 -0700 (PDT)
+X-Received: by 10.68.129.99 with SMTP id nv3mr6125867pbb.128.1400631808503;
+        Tue, 20 May 2014 17:23:28 -0700 (PDT)
+Return-Path: <bounces+855718-d760-ben=npmjs.com@m.respond.ly>
+Received: from o1.m.respond.ly (o1.m.respond.ly. [192.254.118.86])
+        by mx.google.com with SMTP id rk7si26756779pab.174.2014.05.20.17.23.27
+        for <ben@npmjs.com>;
+        Tue, 20 May 2014 17:23:28 -0700 (PDT)
+Received-SPF: pass (google.com: domain of bounces+855718-d760-ben=npmjs.com@m.respond.ly designates 192.254.118.86 as permitted sender) client-ip=192.254.118.86;
+Authentication-Results: mx.google.com;
+       spf=pass (google.com: domain of bounces+855718-d760-ben=npmjs.com@m.respond.ly designates 192.254.118.86 as permitted sender) smtp.mail=bounces+855718-d760-ben=npmjs.com@m.respond.ly;
+       dkim=pass header.i=@respond.ly
+DKIM-Signature: v=1; a=rsa-sha1; c=relaxed; d=respond.ly;
+	h=content-type:mime-version:from:to:subject; s=smtpapi;
+	bh=+HEp5Zmk0duiB7iqctFLTQTGEPQ=; b=cWKtFqQFdV1h7dNZEuB/amqyiY5RD
+	RQGN3MSya6RSrR6vAtFOQdtNHrF3TnoLTDQrCsRxQk44gBjF9Qg61TEjH7Lewyuv
+	cw1NcSKpDgTc3m+F/vetYi8l0/wHh3pVFkipq50GbgLpmlH1sYtIxSRhJ8TrjYLI
+	uQXl9lruIPKh3U=
+Received: by mf191.sendgrid.net with SMTP id mf191.3530.537BF1FD10
+        Wed, 21 May 2014 00:23:25 +0000 (UTC)
+Received: from ODU1NzE4 (ec2-54-225-192-46.compute-1.amazonaws.com [54.225.192.46])
+	by localhost.localdomain (SG) with HTTP id 1461c2947bb.689f.cc4d4
+	for <ben@npmjs.com>; Wed, 21 May 2014 00:23:25 +0000 (GMT)
+Content-Type: multipart/alternative;
+	boundary="===============5158483353659381610=="
 MIME-Version: 1.0
-Received: by 10.236.129.244 with SMTP id h80mr32823733yhi.130.1322038344139;
- Wed, 23 Nov 2011 00:52:24 -0800 (PST)
-Received: by 10.100.239.8 with HTTP; Wed, 23 Nov 2011 00:52:24 -0800 (PST)
-Date: Wed, 23 Nov 2011 00:52:24 -0800
-Message-ID: <CAPaLAOttOxnSGbEh9EeMCKLS1VfD=1AW=zPzXqJqd+o0ipnHJQ@mail.gmail.com>
-Subject: Testing DKIM
-From: Ben Coe <bencoe@gmail.com>
-To: ben coe <bcoe@uoguelph.ca>
-Content-Type: multipart/alternative; boundary=20cf300e55f3e1c2f804b2630968
+From: Respondly <notifications@respond.ly>
+To: ben@npmjs.com
+Subject: New tweet from Victor M (@medina9000)
+Message-ID: <1461c2947bb.689f.cc4d4@localhost.localdomain>
+Date: Wed, 21 May 2014 00:23:26 +0000 (UTC)
+X-SG-EID: 5ctn7BY8g/XQmnVnEcyqoJbn+JcRdpn3RLBuiestrorqCnN0NcliL5gVC9QCY7J4TG3CqDtVqTGbph2g/ZpYxTZNr4fnNncdlgeZRsAM1Ppl/L/Jqu4/A/TniQNWxr8qghWzNYFBsni7+lBBP2c2Bw==
 
---20cf300e55f3e1c2f804b2630968
-Content-Type: text/plain; charset=ISO-8859-1
+--===============5158483353659381610==
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-An email specifically for testing DKIM.
+New Tweet Received
 
---20cf300e55f3e1c2f804b2630968
-Content-Type: text/html; charset=ISO-8859-1
+--
+2 tweets from Victor M (@medina9000). The most recent:
 
-An email specifically for testing DKIM.
 
---20cf300e55f3e1c2f804b2630968--
+@seldo @npm_support it's good now, thanks!
+
+
+-----------------
+View on Respondly: https://app.respond.ly/jvm7/inbox/GHwnozq5XHeY627Md
+Notification settings: https://app.respond.ly/jvm7/settings/notifications=
+
+--===============5158483353659381610==
+Content-Type: text/html; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+
+<table
+  cellspacing=3D"0" cellpadding=3D"0" border=3D"0"
+  style=3D"padding:0; margin:0; width:100%; font:15px/1.25em 'Helvetica Neu=
+e',Arial,Helvetica;">
+  <tbody>
+    <tr width=3D"100%">
+      <td bgcolor=3D"#f6f6f2" style=3D"background:#f6f6f2;">
+
+        <table
+  cellspacing=3D"0" cellpadding=3D"0" border=3D"0"
+  style=3D"border:none; padding:0 18px; margin:50px auto; width:500px">
+
+  <tr width=3D"100%" height=3D"60">
+    <td
+      valign=3D"top" align=3D"left"
+      bgcolor=3D"#e5e3d7"
+      style=3D"position:relative; border-top-left-radius:8px; border-top-ri=
+ght-radius:8px; background:#e5e3d7 url('https://sites.google.com/a/respond.=
+ly/images/_/rsrc/1384901907725/email-notifications/header.png') top left no=
+-repeat; padding:0px; text-align:right">
+
+
+    </td>
+  </tr>
+
+  <tr width=3D"100%">
+    <td
+      valign=3D"top" align=3D"left"
+      color=3D"#5b5a56"
+      bgcolor=3D"#fff"
+      style=3D"line-height:22px; color:#5b5a56; border-bottom-left-radius:8=
+px; border-bottom-right-radius:8px; background:#fff; padding:18px">
+
+      <h1 style=3D"font-size:20px; line-height:24px; margin:0; color:#5b5a5=
+6; font-family:'Helvetica Neue',Arial,Helvetica;">
+  <a href=3D"https://app.respond.ly/jvm7/inbox/GHwnozq5XHeY627Md" style=3D"=
+color:#5b5a56; text-decoration:none;">
+    New Tweet Received
+  </a>
+</h1>
+
+<hr style=3D"clear:both; min-height:1px; border:0; border:none; width:100%;=
+ background:#e5e3d7; margin:18px 0; padding:0">
+
+<div></div>
+<div style=3D"margin-top:8px;">2 tweets from <img
+  src=3D"https://abs.twimg.com/sticky/default_profile_images/default_profil=
+e_3_normal.png"
+  style=3D"position:relative; width:22px; height:22px; border-radius:3px; m=
+argin-right:2px; vertical-align:middle;"
+  /> <b>Victor M (@medina9000)</b>. The most recent:</div>
+
+<div style=3D"position:relative; margin-top:20px; margin-bottom:20px; borde=
+r:solid 1px #e5e3d7; border-radius:5px; padding:12px; background:#f6f6f2;">=
+<a class=3D"tweet-url username" href=3D"https://twitter.com/seldo" data-scr=
+een-name=3D"seldo" rel=3D"nofollow">@seldo</a> <a class=3D"tweet-url userna=
+me" href=3D"https://twitter.com/npm_support" data-screen-name=3D"npm_suppor=
+t" rel=3D"nofollow">@npm_support</a> it's good now, thanks!</div>
+
+<div style=3D"text-align:center; padding-top:10px; padding-bottom:13px;">
+  <a href=3D"https://app.respond.ly/jvm7/inbox/GHwnozq5XHeY627Md?tour=3Dfal=
+se" style=3D"text-decoration:none;" target=3D"_blank">
+    <span style=3D"background:#5cc15b; color:#fff; padding:10px 30px; font-=
+size:18px; border-radius:3px;">
+      <b>Open</b>
+    </span>
+  </a>
+</div>
+
+    </td>
+  </tr>
+</table><table
+  cellspacing=3D"0" cellpadding=3D"0" border=3D"0"
+  style=3D"border:none; padding:0 18px; margin-top:0px; margin-bottom:0px; =
+margin-left: auto; margin-right:auto;  width:500px">
+
+  <tr width=3D"100%">
+    <td valign=3D"top" align=3D"left" color=3D"#c6c5b7" style=3D"color:#c6c=
+5b7; padding:12px; padding-top:0px; padding-bottom:40px;">
+      <p style=3D"color:#c6c5b7; margin:0px 0px 5px 0px;">
+  Change your
+  <a href=3D"https://app.respond.ly/jvm7/settings/notifications" style=3D"c=
+olor:#8f8b7b; text-decoration:underline;">notification settings</a>.
+</p><p style=3D"color:#c6c5b7; margin:0px 0px 5px 0px;">
+  Follow Respondly on
+  <a href=3D"https://twitter.com/respondly" style=3D"color:#8f8b7b; text-de=
+coration:underline;">Twitter</a> and
+  <a href=3D"https://www.facebook.com/respondly" style=3D"color:#8f8b7b; te=
+xt-decoration:underline;">Facebook</a>
+</p>
+    </td>
+  </tr>
+</table>
+
+      </td>
+    </tr>
+  <tbody>
+</table>=
+
+--===============5158483353659381610==--
