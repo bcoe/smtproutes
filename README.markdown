@@ -42,7 +42,7 @@ Any named groups specified in the route regex will be availble as instance varia
 
 ```python
 class ExampleRoute(Route):
-    
+
 	@route(r'(?P<prefix>open)@(?P<suffix>.*)')
     def open_route(self):
         print "%s at %s sent the message: \n\n %s" % (
@@ -141,3 +141,8 @@ Additional Support for Attachments
 * _attachment.data_ the binary data of the attachment.
 * _attachment.extension_ the file extension of the attachment.
 * _attachment.mime_type_ the mime type of the attachment.
+
+License
+-------
+
+ISC, see LICENSE.txt
