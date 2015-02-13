@@ -8,3 +8,9 @@ config/environment.json
 *.egg-info
 *.DS_Store
 
+# PyCharm metadata
+.idea/
+
+# Mercurial metadata, for people that use git *only* for pushing to Github
+.hg/
+.hgignore
