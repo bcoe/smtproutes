@@ -14,7 +14,7 @@ setup(
         'secure-smtpd==2.0.0',
         'pydkim==0.3',
         'dnspython',
-        'pyspf==1.4.0',
+        'pyspf>=1.4.0',
         'pydns'
     ],
     tests_require=[
